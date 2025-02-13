@@ -6,7 +6,6 @@ import nest_asyncio
 import numpy as np
 from fastapi.middleware.cors import CORSMiddleware
 import pickle 
-import os
 
 
 # Initialize FastAPI app
@@ -21,16 +20,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Get current working directory
-working_directory = os.getcwd()
-car_model_file_path = working_directory + 'src/prediction_models/car_purchase_decision_model.pkl'
-car_scaler_file_path = working_directory + 'src/prediction_models/car_purchase_decision_scaler.pkl'
-
-
 
 # Load the saved model and scaler
-car_model = pickle.load(open(car_model_file_path, 'rb'))
-car_scaler = pickle.load(open(car_scaler_file_path, 'rb'))
+car_model = pickle.load(open('./src/prediction_models/car_purchase_decision_model.pkl', 'rb'))
+car_scaler = pickle.load(open('./src/prediction_models/car_purchase_decision_scaler.pkl', 'rb'))
 
 
 # Define input schema
