@@ -1,0 +1,10 @@
+pandas
+numpy
+matplotlib
+seaborn
+kagglehub
+scikit-learn
+fastapi[standard]
+pydantic 
+uvicorn
+nest_asyncio
