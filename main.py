@@ -21,6 +21,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Run the server
+nest_asyncio.apply()
+
 # Load the saved model and scaler
 car_model = pickle.load(open('./src/prediction_models/car_purchase_decision_model.pkl', 'rb'))
 car_scaler = pickle.load(open('./src/prediction_models/car_purchase_decision_scaler.pkl', 'rb'))
@@ -49,9 +52,6 @@ def predict_car_purchase(input_data: CarPurchase):
   result = "Most likely to purchase a car" if prediction[0] == 1 else "Bad Wine"
 
   return {"prediction": result}
-
-# Run the server
-nest_asyncio.apply()
 
 #uvicorn.run(app, host="0.0.0.0", port=8000)
 
