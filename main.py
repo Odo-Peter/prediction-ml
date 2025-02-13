@@ -22,8 +22,8 @@ app.add_middleware(
 )
 
 # Load the saved model and scaler
-model = pickle.load(open('./src/prediction_models/car_purchase_decision_model.pkl', 'rb'))
-scaler = pickle.load(open('./src/prediction_models/car_purchase_decision_scaler.pkl', 'rb'))
+car_model = pickle.load(open('./src/prediction_models/car_purchase_decision_model.pkl', 'rb'))
+car_scaler = pickle.load(open('./src/prediction_models/car_purchase_decision_scaler.pkl', 'rb'))
 
 
 # Define input schema
@@ -42,16 +42,16 @@ def predict_car_purchase(input_data: CarPurchase):
   input_array = np.array(input_data.features).reshape(1, -1)
 
   # scale the input features
-  scaled_data = scaler.transform(input_array)
+  scaled_data = car_scaler.transform(input_array)
 
   # Make prediction
-  prediction = model.predict(scaled_data)
-  result = "Good Wine" if prediction[0] == 1 else "Bad Wine"
+  prediction = car_model.predict(scaled_data)
+  result = "Most likely to purchase a car" if prediction[0] == 1 else "Bad Wine"
 
   return {"prediction": result}
 
 # Run the server
-# nest_asyncio.apply()
+ nest_asyncio.apply()
 
 #uvicorn.run(app, host="0.0.0.0", port=8000)
 
